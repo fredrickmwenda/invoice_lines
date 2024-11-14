@@ -1,0 +1,46 @@
+<!-- InvoiceLines/views/report_invoice_template.xml -->
+<odoo>
+    <template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
+        <xpath expr="//table[@class='invoice_line_table']/thead/tr" position="replace">
+            <tr>
+                <th>Description</th>
+                <th>Colour</th>
+                <th>Meters</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Discount (%)</th>
+                <th>VAT (%)</th>
+                <th>Amount</th>
+            </tr>
+        </xpath>
+        <xpath expr="//table[@class='invoice_line_table']/tbody/tr" position="replace">
+            <tr t-foreach="o.invoice_line_ids" t-as="line">
+                <td>
+                    <span t-field="line.name"/>
+                </td>
+                <td>
+                    <span t-field="line.color"/>
+                </td>
+                <td>
+                    <span t-field="line.meters"/>
+                </td>
+                <td>
+                    <span t-field="line.quantity"/>
+                </td>
+                <td>
+                    <span t-field="line.price_unit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </td>
+                <td>
+                    <span t-field="line.discount"/>%
+                </td>
+                <td>
+                    <span t-field="line.vat"/>%
+                </td>
+                <td>
+                    <span t-field="line.computed_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </td>
+            </tr>
+        </xpath>
+    </template>
+</odoo>
+
