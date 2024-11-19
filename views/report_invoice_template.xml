@@ -1,7 +1,7 @@
-<!-- InvoiceLines/views/report_invoice_template.xml -->
 <odoo>
     <template id="report_invoice_document_custom" inherit_id="account.report_invoice_document">
-        <xpath expr="//table[@class='invoice_line_table']/thead/tr" position="replace">
+        <!-- Customizing the invoice line table headers -->
+        <xpath expr="//table[@name='invoice_line_table']/thead/tr" position="replace">
             <tr>
                 <th>Description</th>
                 <th>Colour</th>
@@ -13,34 +13,52 @@
                 <th>Amount</th>
             </tr>
         </xpath>
-        <xpath expr="//table[@class='invoice_line_table']/tbody/tr" position="replace">
-            <tr t-foreach="o.invoice_line_ids" t-as="line">
-                <td>
-                    <span t-field="line.name"/>
-                </td>
-                <td>
-                    <span t-field="line.color"/>
-                </td>
-                <td>
-                    <span t-field="line.meters"/>
-                </td>
-                <td>
-                    <span t-field="line.quantity"/>
-                </td>
-                <td>
-                    <span t-field="line.price_unit" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                </td>
-                <td>
-                    <span t-field="line.discount"/>%
-                </td>
-                <td>
-                    <span t-field="line.vat"/>%
-                </td>
-                <td>
-                    <span t-field="line.computed_amount" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                </td>
-            </tr>
+
+        <!-- Customizing the invoice line table body -->
+        <xpath expr="//table[@name='invoice_line_table']/tbody" position="replace">
+            <tbody>
+                <tr t-foreach="o.invoice_line_ids" t-as="line">
+                    <!-- Product or service description -->
+                    <td>
+                        <span t-field="line.name"/>
+                    </td>
+
+                    <!-- Custom field: Colour -->
+                    <td>
+                        <span t-field="line.color"/>
+                    </td>
+
+                    <!-- Custom field: Meters -->
+                    <td>
+                        <span t-field="line.meters"/>
+                    </td>
+
+                    <!-- Quantity -->
+                    <td>
+                        <span t-field="line.quantity" t-options="{'widget': 'float'}"/>
+                    </td>
+
+                    <!-- Unit Price -->
+                    <td>
+                        <span t-field="line.price_unit" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                    </td>
+
+                    <!-- Discount -->
+                    <td>
+                        <span t-field="line.discount"/>%
+                    </td>
+
+                    <!-- Custom field: VAT -->
+                    <td>
+                        <span t-field="line.vat"/>%
+                    </td>
+
+                    <!-- Computed Amount -->
+                    <td>
+                        <span t-field="line.price_total" t-options="{'widget': 'monetary', 'display_currency': line.currency_id}"/>
+                    </td>
+                </tr>
+            </tbody>
         </xpath>
     </template>
 </odoo>
-
