@@ -8,12 +8,12 @@ class AccountMoveLine(models.Model):
     meters = fields.Float(string="Meters")
     vat = fields.Float(string="VAT (%)")
     discount = fields.Float(string="Discount (%)")
-    computed_amount = fields.Float(string="Amount", compute="_compute_amount")
+    computed_amount = fields.Float(string="Amount", compute="_compute_amount", store=True)
 
-    @api.depends('meters', 'quantity', 'price_unit', 'discount')
+
+    @api.depends('meters', 'quantity', 'price_unit')
     def _compute_amount(self):
         for line in self:
-            base_amount = line.meters * line.quantity * line.price_unit
-            discount_amount = base_amount * (line.discount / 100)
-            line.computed_amount = base_amount - discount_amount
+            line.computed_amount = line.meters * line.quantity * line.price_unit
+            line.price_subtotal = line.computed_amount
 
