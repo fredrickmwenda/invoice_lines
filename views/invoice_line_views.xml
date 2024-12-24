@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='invoice_line_ids']/tree" position="inside">
                 <field name="name"/> 
-                <field name="color"/>
+                <field name="colour"/>
                 <field name="meters"/>
                 <field name="quantity"/> 
                 <field name="price_unit"/> 

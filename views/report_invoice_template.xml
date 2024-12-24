@@ -25,7 +25,7 @@
 
                     <!-- Custom field: Colour -->
                     <td>
-                        <span t-field="line.color"/>
+                        <span t-field="line.colour"/>
                     </td>
 
                     <!-- Custom field: Meters -->
