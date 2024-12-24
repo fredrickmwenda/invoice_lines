@@ -4,7 +4,7 @@ from odoo import models, fields, api
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    color = fields.Char(string="Colour")
+    colour = fields.Char(string="Colour")
     meters = fields.Float(string="Meters")
     vat = fields.Float(string="VAT (%)")
     discount = fields.Float(string="Discount (%)")
